@@ -129,7 +129,7 @@ jobs:
               uses: cypress-io/github-action@v2
               with:
                   install: false
-                  record: false
+                  record: true
                   parallel: true
                   start: ${{ env.SERVER_START_CMD }}
                   wait-on: ${{ env.SERVER_URL }}
