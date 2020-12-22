@@ -144,10 +144,9 @@ jobs:
                   COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
                   SERVER_START_CMD: 'yarn cy:start'
                   SERVER_URL: 'http://localhost:3000'
-                  CYPRESS_DHIS2_BASE_URL: 'http://localhost:8080'
-                  CYPRESS_DHIS2_USERNAME: 'admin'
-                  CYPRESS_DHIS2_PASSWORD: 'district'
-                  CYPREE_DHIS2_DATATEST_PREFIX: 'dhis2-smsconfiguration'
+                  CYPRESS_dhis2_base_url: 'http://localhost:8080'
+                  CYPRESS_dhis2_username: 'admin'
+                  CYPRESS_dhis2_passord: 'district'
   
     # release:
     #     runs-on: ubuntu-latest
