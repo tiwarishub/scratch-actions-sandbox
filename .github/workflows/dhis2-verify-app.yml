@@ -31,73 +31,73 @@ jobs:
               if: steps.yarn-cache.outputs.cache-hit != 'true'
               run: yarn install --frozen-lockfile
 
-    build:
-        runs-on: ubuntu-latest
-        needs: install
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 12.x
+#     build:
+#         runs-on: ubuntu-latest
+#         needs: install
+#         if: "!contains(github.event.head_commit.message, '[skip ci]')"
+#         steps:
+#             - uses: actions/checkout@v2
+#             - uses: actions/setup-node@v1
+#               with:
+#                   node-version: 12.x
 
-            - uses: actions/cache@v2
-              id: yarn-cache
-              with:
-                  path: '**/node_modules'
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#             - uses: actions/cache@v2
+#               id: yarn-cache
+#               with:
+#                   path: '**/node_modules'
+#                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-            - name: Build
-              run: yarn build
+#             - name: Build
+#               run: yarn build
 
-            - uses: actions/upload-artifact@v2
-              with:
-                  name: app-build
-                  path: |
-                      **/build
-                      !**/node_modules
-                  retention-days: 1
+#             - uses: actions/upload-artifact@v2
+#               with:
+#                   name: app-build
+#                   path: |
+#                       **/build
+#                       !**/node_modules
+#                   retention-days: 1
 
-    lint:
-        runs-on: ubuntu-latest
-        needs: install
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 12.x
+#     lint:
+#         runs-on: ubuntu-latest
+#         needs: install
+#         if: "!contains(github.event.head_commit.message, '[skip ci]')"
+#         steps:
+#             - uses: actions/checkout@v2
+#             - uses: actions/setup-node@v1
+#               with:
+#                   node-version: 12.x
 
-            - uses: actions/cache@v2
-              id: yarn-cache
-              with:
-                  path: '**/node_modules'
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#             - uses: actions/cache@v2
+#               id: yarn-cache
+#               with:
+#                   path: '**/node_modules'
+#                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-            - name: Lint
-              run: yarn lint
+#             - name: Lint
+#               run: yarn lint
 
-    test:
-        runs-on: ubuntu-latest
-        needs: [install]
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 12.x
+#     test:
+#         runs-on: ubuntu-latest
+#         needs: [install]
+#         if: "!contains(github.event.head_commit.message, '[skip ci]')"
+#         steps:
+#             - uses: actions/checkout@v2
+#             - uses: actions/setup-node@v1
+#               with:
+#                   node-version: 12.x
 
-            - uses: actions/cache@v2
-              id: yarn-cache
-              with:
-                  path: '**/node_modules'
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#             - uses: actions/cache@v2
+#               id: yarn-cache
+#               with:
+#                   path: '**/node_modules'
+#                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-            - name: Generate translations
-              run: yarn d2-app-scripts i18n generate
+#             - name: Generate translations
+#               run: yarn d2-app-scripts i18n generate
 
-            - name: Test
-              run: yarn test
+#             - name: Test
+#               run: yarn test
 
     e2e:
         runs-on: ubuntu-latest
@@ -142,6 +142,11 @@ jobs:
                   COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
                   SERVER_START_CMD: 'yarn cy:start'
                   SERVER_URL: 'http://localhost:3000'
+                  CYPRESS_DHIS2_BASE_URL: 'http://localhost:8080'
+                  CYPRESS_DHIS2_USERNAME: 'admin'
+                  CYPRESS_DHIS2_PASSWORD: 'district'
+                  CYPREE_DHIS2_DATATEST_PREFIX: 'dhis2-smsconfiguration'
+  
     # release:
     #     runs-on: ubuntu-latest
     #     needs: [publish]
