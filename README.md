@@ -13,13 +13,13 @@ You will need a `cypress.env.json` file with the contents:
     "dhis2_base_url": "",
     "dhis2_username": "",
     "dhis2_password": "",
-    "dhis2_datatest_prefix": "dhis2-smsconfiguration"
 }
 ```
 
 The value for the first three fields needs to be appropriate for the
-server you wish to test against. The `dhis2_datatest_prefix` needs to
-be correct for this app.
+server you wish to test against. 
+An additional required environment variable (`dhis2_datatest_prefix`) is 
+specified as `dhis2-smsconfiguration` in `cypress.json`.
 
 Run the tests with `yarn cy:run`.
 
