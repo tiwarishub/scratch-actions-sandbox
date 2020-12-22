@@ -41,7 +41,7 @@ const handleLogin = () => {
         // This will authenticate and set the session cookie
         const username = Cypress.env('dhis2_username')
         const password = Cypress.env('dhis2_password')
-        const loginUrl = Cypress.env('dhis2_base_url')
+        const loginUrl = getApiBaseUrl()
 
         cy.request({
             url: `${loginUrl}/${loginEndPoint}`,
