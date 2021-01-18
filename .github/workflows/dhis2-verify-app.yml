@@ -126,7 +126,17 @@ jobs:
               run: yarn cypress install
 
             # TODO: Set up DHIS2 instance using Docker and D2 CLI (https://cli.dhis2.nu)
-
+            # trying	
+            - name: install yarn	
+              run: brew install yarn	
+     	
+            - name: install dhis cli	
+              run: yarn global add @dhis2/cli	
+      	
+            - name: seed db	
+              run: d2 cluster up 2.35.0 --db-version 2.35 --seed	
+          	
+            #try end
             - name: End-to-End tests
               uses: cypress-io/github-action@v2
               with:
